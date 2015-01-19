@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.AnalogInput;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -30,10 +32,15 @@ public class Robot extends IterativeRobot {
     
     //robot drive
     private RobotDrive DriveBase = new RobotDrive(LeftFront, LeftRear, RightFront, RightRear);
+    public AnalogInput rangeFinder = new AnalogInput(0);
     
     public void robotInit() {
+    
+  
 
     }
+    
+    
 
     /**
      * This function is called periodically during autonomous
@@ -51,6 +58,7 @@ public class Robot extends IterativeRobot {
     	double direction = driver.getDirectionDegrees();
         double magnitude = driver.getMagnitude();
         double rotation = driver.getRawAxis(4);
+      
         
         //check joystick deadzone for magnitude
         if(magnitude < .1){
@@ -64,6 +72,7 @@ public class Robot extends IterativeRobot {
         
         //
         DriveBase.mecanumDrive_Polar(magnitude, direction, rotation);
+        System.out.println(rangeFinder.getAverageVoltage());
     }
     
     /**
