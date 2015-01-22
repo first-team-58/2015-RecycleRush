@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
@@ -32,12 +34,13 @@ public class Robot extends IterativeRobot {
     
     //robot drive
     private RobotDrive DriveBase = new RobotDrive(LeftFront, LeftRear, RightFront, RightRear);
-    public AnalogInput rangeFinder = new AnalogInput(0);
+    
+    //analog input for infrared range-finder
+    public AnalogInput rangeFinder = new AnalogInput(1);
     
     public void robotInit() {
-    
-  
-
+    	LiveWindow.setEnabled(true);
+    	LiveWindow.addSensor("RangeFinder", "range", rangeFinder);
     }
     
     
@@ -70,9 +73,12 @@ public class Robot extends IterativeRobot {
             rotation = 0;
         }
         
-        //
+        //polar mecanum drive
         DriveBase.mecanumDrive_Polar(magnitude, direction, rotation);
-        System.out.println(rangeFinder.getAverageVoltage());
+        SmartDashboard.putNumber("Rangefinder", rangeFinder.getAverageVoltage());
+        
+        SmartDashboard.putString("message", "HI PATRICK");
+        
     }
     
     /**
