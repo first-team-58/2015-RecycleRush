@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team58.robot;
 
+import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -38,18 +39,29 @@ public class Robot extends IterativeRobot {
     //analog input for infrared range-finder
     public AnalogInput rangeFinder = new AnalogInput(1);
     
+    //create gyroscope
+    private Gyro gyroscope = new Gyro(0);
+    
+    //runs once on robot startup
     public void robotInit() {
     	LiveWindow.setEnabled(true);
     	LiveWindow.addSensor("RangeFinder", "range", rangeFinder);
     }
-    
-    
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-
+    
+    	//check if rangeFinder is getting a reading
+    	if(rangeFinder.getAverageVoltage() < 1){
+    		//drive forward at 1/2 speed
+    		//correct for gyroscope angle
+    		DriveBase.mecanumDrive_Cartesian(0, -.5, 0, gyroscope.getAngle());
+    	} else {
+    		DriveBase.mecanumDrive_Cartesian(0,0,0,0);
+    	}
+    
     }
 
     /**
