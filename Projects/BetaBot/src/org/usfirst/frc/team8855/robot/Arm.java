@@ -40,5 +40,6 @@ public class Arm {
 			// Go down if X is pressed and limit switch not triggered
 			speed = -0.5;
 		}
+		SetArm(speed);
 	}
 }
