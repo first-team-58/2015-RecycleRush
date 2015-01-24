@@ -1,4 +1,3 @@
-
 package org.usfirst.frc.team58.robot;
 
 import edu.wpi.first.wpilibj.Gyro;
@@ -11,15 +10,9 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the IterativeRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
- */
 public class Robot extends IterativeRobot {
-    /**
+    
+	/**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
@@ -88,8 +81,6 @@ public class Robot extends IterativeRobot {
         //polar mecanum drive
         DriveBase.mecanumDrive_Polar(magnitude, direction, rotation);
         SmartDashboard.putNumber("Rangefinder", rangeFinder.getAverageVoltage());
-        
-        SmartDashboard.putString("message", "HI PATRICK");
         
     }
     
