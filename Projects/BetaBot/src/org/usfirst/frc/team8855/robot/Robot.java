@@ -32,6 +32,12 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Drive.driveTeleop();
+        Arm.doStats();
+        Arm.DoTeleop();
+    }
+    
+    public void disabledPeriodic(){
+    	Arm.doStats();
     }
     
     /**
