@@ -35,7 +35,7 @@ public class Drive {
     	
     	//get three axis of rotation for joystick
     	double direction = Joysticks.driver.getDirectionDegrees();
-        double magnitude = Joysticks.driver.getMagnitude();
+        double magnitude = Joysticks.driver.getMagnitude() * 0.8;
         double rotation = Joysticks.driver.getRawAxis(4);
       
         //left bumper toggle for slow speed 
