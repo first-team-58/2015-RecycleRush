@@ -34,19 +34,26 @@ public class Drive {
     public static void driveTeleop(){
     	
     	//get three axis of rotation for joystick
-    	double direction = Joysticks.driver.getDirectionDegrees();
-        double magnitude = Joysticks.driver.getMagnitude() * 0.8;
+    	double direction = Joysticks.driver.getX();
+        double magnitude = Joysticks.driver.getY();
         double rotation = Joysticks.driver.getRawAxis(4);
       
         //left bumper toggle for slow speed 
         boolean slow = Joysticks.driver.getRawButton(5);
         
-        //check joystick deadzone for magnitude
+      //check joystick deadzone for magnitude
         if(magnitude < .1){
             magnitude = 0;
         } else if (slow){
         	//when not in dead zone (0), divide magnitude by 3
         	magnitude /= 3;
+        }//check joystick deadzone for magnitude
+        
+        if(direction < .1){
+            direction = 0;
+        } else if (slow){
+        	//when not in dead zone (0), divide magnitude by 3
+        	direction /= 3;
         }
         
         //check joystick deadzone for rotation
@@ -58,7 +65,7 @@ public class Drive {
         }
         
         //polar mecanum drive
-        DriveBase.mecanumDrive_Polar(magnitude, direction, rotation);
+        DriveBase.mecanumDrive_Cartesian(magnitude, direction, rotation, gyroscope.getAngle());
         
     }
     
