@@ -31,15 +31,22 @@ public class Arm {
 		ArmRight.set(speed);
 	}
 	
+	private static void SetCollector (double speed) {
+		IntakeLeft.set(speed);
+		IntakeRight.set(speed);
+	}
+	
 	public static void DoTeleop(){
 		double speed = 0;
-		if (Joysticks.driver.getRawButton(4) && LimitUp.get()){
+		if (Joysticks.operator.getRawButton(4) && LimitUp.get()){
 			// Go up if Y is pressed and limit switch not triggered
 			speed = 0.5;
-		} else if(Joysticks.driver.getRawButton(3) && LimitDown.get()){ 
+		} else if(Joysticks.operator.getRawButton(3) && LimitDown.get()){ 
 			// Go down if X is pressed and limit switch not triggered
 			speed = -0.5;
 		}
 		SetArm(speed);
+		
+		SetCollector(Joysticks.operator.getZ());
 	}
 }
