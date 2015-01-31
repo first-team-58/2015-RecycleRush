@@ -37,25 +37,23 @@ public class Arm {
 	}
 	
 	public static void DoTeleop(){
-		//speed of arm translation
 		double speed = 0;
-		//LB is slow button for arm translation
-		boolean slow = Joysticks.driver.getRawButton(5);
+		boolean slow = Joysticks.operator.getRawButton(5);
 		
-		if (Joysticks.operator.getRawButton(4) && LimitUp.get() && slow){
-			// Go up half-speed if Y is pressed and limit switch not triggered and slow 
-			speed = 0.25;
-		} else if (Joysticks.operator.getRawButton(4) && LimitUp.get()){
-			// Go up normal speed if Y is pressed and limit switch not triggered
+		if (Joysticks.operator.getRawButton(4) && LimitUp.get()){
+			// Go up if Y is pressed and limit switch not triggered
 			speed = 0.5;
-		} else if(Joysticks.operator.getRawButton(3) && LimitDown.get() && slow){ 
-			// Go down half-speed if X is pressed and limit switch not triggered and slow
-			speed = -0.25;
-		} else if(Joysticks.operator.getRawButton(3) && LimitDown.get()){
-			// Go down normal speed if X is pressed and limit switch not triggered
+		} else if(Joysticks.operator.getRawButton(3) && LimitDown.get()){ 
+			// Go down if X is pressed and limit switch not triggered
 			speed = -0.5;
+		}
+		
+		//check for active slow button in up or down is pressed
+		if(Math.abs(speed) > 0 && slow == true){
+			//double the speed
+			speed *= 2;
 		} else {
-			speed = 0;
+			speed = speed;
 		}
 		
 		SetArm(speed);
