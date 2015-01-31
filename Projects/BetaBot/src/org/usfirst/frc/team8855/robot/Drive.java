@@ -1,6 +1,5 @@
 package org.usfirst.frc.team8855.robot;
 
-
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -24,45 +23,53 @@ public class Drive {
 	private static Talon LeftFront = new Talon(2);
 	private static Talon RightFront = new Talon(3);
 
+	//POV Head readingS
+    private static double POVhead = Joysticks.driver.getPOV(0);
+    
     //create gyroscope
     private static Gyro gyroscope = new Gyro(0);
     
     //drivebase
     private static RobotDrive DriveBase = new RobotDrive(LeftFront, LeftRear, RightFront, RightRear);
-	
     
     public static void driveTeleop(){
     	
     	//get three axis of rotation for joystick
-    	double x = Joysticks.driver.getX();
-        double y = Joysticks.driver.getY();
         double rotation = Joysticks.driver.getRawAxis(4);
-      
-        //left bumper toggle for slow speed 
-        boolean fast = Joysticks.driver.getRawButton(5);
         
-        //check joystick deadzone for y axis
-        if(Math.abs(y) < .1){
-            y = 0;
-        } else if (!fast){
-        	//when not in dead zone (0), divide magnitude by 3
-        	y /= 3;
+        //magnitudes initialy set from Joystick's analog stick
+        double xMag = Joysticks.driver.getX();
+        double yMag = Joysticks.driver.getY();
+        
+        
+        
+        //check for deadzone and set magnitude for joystick
+        if(Math.abs(xMag) < .1){
+        	xMag = 0;
+        } else {
+        	xMag /= 3;
         }
-        if(Math.abs(x) < .1){
-            x = 0;
-        } else if (!fast){
-        	x /= 3;
+        if(Math.abs(yMag) < .1){
+        	yMag = 0;
+        } else {
+        	yMag /= 3;
         }
         
+        //check joystick deadzone for rotation
         if(Math.abs(rotation) < .1){
             rotation = 0;
-        } else if (!fast){
+        } else {
         	rotation /= 3;
         }
         
-        //polar mecanum drive
-        DriveBase.mecanumDrive_Cartesian(y, x, rotation, gyroscope.getAngle());
+        //drive with magnitudes and roatation
+        //gyro angle set to 0
+        DriveBase.mecanumDrive_Cartesian(xMag, yMag, rotation, 0);
         
+    }
+    
+    public static void doStats(){
+    	SmartDashboard.putNumber("POV Head: ", POVhead); //debug POV to dashboard
     }
     
 }

@@ -2,6 +2,7 @@
 package org.usfirst.frc.team8855.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -17,7 +18,7 @@ public class Robot extends IterativeRobot {
      */
 		
     public void robotInit() {
-
+    	LiveWindow.setEnabled(true);
     }
 
     /**
@@ -38,6 +39,7 @@ public class Robot extends IterativeRobot {
     
     public void disabledPeriodic(){
     	Arm.doStats();
+    	Drive.doStats();
     }
     
     /**
