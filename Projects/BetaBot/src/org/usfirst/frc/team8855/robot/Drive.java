@@ -30,6 +30,26 @@ public class Drive {
     private static RobotDrive DriveBase = new RobotDrive(LeftFront, LeftRear, RightFront, RightRear);
     
     public static void driveTeleop(){
+	    if (Joysticks.driver.getPOV(0) == -1){
+	    	driveStick();
+	    } else {
+	    	drivePOV();
+	    }
+    }
+    private static void drivePOV(){
+    	//get three axis of rotation for joystick
+        double rotation = 0;
+        
+        //magnitudes initialy set from Joystick's analog stick
+        double mag = 0.25;
+        double dir = Joysticks.driver.getPOV(0);
+        
+        //drive with magnitudes and roatation
+        //gyro angle set to 0
+        DriveBase.mecanumDrive_Polar(mag, dir, rotation);
+        
+    }
+    private static void driveStick(){
     	//get three axis of rotation for joystick
         double rotation = Joysticks.driver.getRawAxis(4);
         
@@ -37,9 +57,7 @@ public class Drive {
         double mag = Joysticks.driver.getMagnitude();
         double dir = Joysticks.driver.getDirectionDegrees();
         
-        double POVhead = Joysticks.driver.getPOV(0);
-        
-        boolean fast = Joysticks.driver.getRawButton(5);
+                boolean fast = Joysticks.driver.getRawButton(5);
         
         //check for deadzone and set magnitude for joystick
         if(Math.abs(mag) < .1){
@@ -48,11 +66,10 @@ public class Drive {
         	mag /= 3;
         }
         
-        if(POVhead == -1){
+        if(Math.abs(mag) < .1){
         	mag = 0;
-        } else {
-        	dir = POVhead;
-        	mag = .2;
+        } else if (!fast) {
+        	mag /= 3;
         }
         
         //check joystick deadzone for rotation
