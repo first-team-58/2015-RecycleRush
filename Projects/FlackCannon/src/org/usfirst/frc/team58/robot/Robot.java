@@ -2,6 +2,7 @@
 package org.usfirst.frc.team58.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -15,8 +16,9 @@ public class Robot extends IterativeRobot {
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
+		
     public void robotInit() {
-
+    	LiveWindow.setEnabled(true);
     }
 
     /**
@@ -30,7 +32,14 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        
+        Drive.driveTeleop();
+        Arm.doStats();
+        Arm.DoTeleop();
+    }
+    
+    public void disabledPeriodic(){
+    	Arm.doStats();
+    	Drive.doStats();
     }
     
     /**
