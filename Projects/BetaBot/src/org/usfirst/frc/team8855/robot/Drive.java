@@ -23,10 +23,7 @@ public class Drive {
 	private static Talon LeftFront = new Talon(2);
 	private static Talon RightFront = new Talon(3);
 
-	//POV Head readingS
-    private static double POVhead = Joysticks.driver.getPOV(0);
-    
-    //create gyroscope
+	//create gyroscope
     private static Gyro gyroscope = new Gyro(0);
     
     //drivebase
@@ -41,24 +38,25 @@ public class Drive {
         double xMag = Joysticks.driver.getX();
         double yMag = Joysticks.driver.getY();
         
-        
+        boolean fast = Joysticks.driver.getRawButton(5);
         
         //check for deadzone and set magnitude for joystick
         if(Math.abs(xMag) < .1){
         	xMag = 0;
-        } else {
+        } else if (!fast) {
         	xMag /= 3;
         }
+        
         if(Math.abs(yMag) < .1){
         	yMag = 0;
-        } else {
+        } else if (!fast)  {
         	yMag /= 3;
         }
         
         //check joystick deadzone for rotation
         if(Math.abs(rotation) < .1){
             rotation = 0;
-        } else {
+        } else if (!fast)  {
         	rotation /= 3;
         }
         
@@ -69,7 +67,9 @@ public class Drive {
     }
     
     public static void doStats(){
-    	SmartDashboard.putNumber("POV Head: ", POVhead); //debug POV to dashboard
+    	SmartDashboard.putNumber("POV #: ", Joysticks.driver.getPOVCount());
+    	SmartDashboard.putNumber("POV 0: ", Joysticks.driver.getPOV(0));
+    	SmartDashboard.putNumber("POV 1: ", Joysticks.driver.getPOV(1));
     }
     
 }
