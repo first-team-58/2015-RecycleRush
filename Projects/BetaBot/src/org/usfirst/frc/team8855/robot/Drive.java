@@ -65,13 +65,7 @@ public class Drive {
         } else if (!fast) {
         	mag /= 3;
         }
-        
-        if(Math.abs(mag) < .1){
-        	mag = 0;
-        } else if (!fast) {
-        	mag /= 3;
-        }
-        
+          
         //check joystick deadzone for rotation
         if(Math.abs(rotation) < .1){
             rotation = 0;
