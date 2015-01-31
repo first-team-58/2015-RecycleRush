@@ -79,7 +79,8 @@ public class Robot extends IterativeRobot {
         }
         
         //polar mecanum drive
-        DriveBase.mecanumDrive_Polar(magnitude, direction, rotation);
+        DriveBase.mecanumDrive_Cartesian(driver.getX(), driver.getY(), rotation, gyroscope.getAngle());
+        
         SmartDashboard.putNumber("Rangefinder", rangeFinder.getAverageVoltage());
         
     }
