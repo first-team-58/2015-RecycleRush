@@ -61,7 +61,7 @@ public class Drive {
         }
         
         //polar mecanum drive
-        DriveBase.mecanumDrive_Cartesian(y, x, rotation, gyroscope.getAngle());
+        DriveBase.mecanumDrive_Cartesian(x, y, rotation, 0);
         
     }
     
