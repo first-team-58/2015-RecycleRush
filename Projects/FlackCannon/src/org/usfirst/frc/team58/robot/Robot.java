@@ -26,6 +26,7 @@ public class Robot extends IterativeRobot {
 
     }
 
+<<<<<<< HEAD
     public void autonomousInit(){
     	timer.start();
     }
@@ -38,26 +39,43 @@ public class Robot extends IterativeRobot {
     		
     	}
     }     
+=======
+    private void Stats(){
+    	Arm.doStats();
+    	Drive.doStats();
+    	LiveWindow.run();
+    }
+    
+    /**
+     * This function is called periodically during autonomous
+     */
+    public void autonomousPeriodic() {
+    	Stats();
+    }
+>>>>>>> 1e420f1de846535d9f6c18fb79ab6b0ec555fb2f
 
     /**
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
         Drive.driveTeleop();
-        Arm.doStats();
         Arm.DoTeleop();
+        Stats();
     }
     
     public void disabledPeriodic(){
-    	Arm.doStats();
-    	Drive.doStats();
+    	Stats();
     }
     
     /**
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
+<<<<<<< HEAD
     	
+=======
+    	Stats();
+>>>>>>> 1e420f1de846535d9f6c18fb79ab6b0ec555fb2f
     }
     
 }
