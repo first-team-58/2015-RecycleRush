@@ -21,11 +21,17 @@ public class Robot extends IterativeRobot {
     	LiveWindow.setEnabled(true);
     }
 
+    private void Stats(){
+    	Arm.doStats();
+    	Drive.doStats();
+    	LiveWindow.run();
+    }
+    
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-
+    	Stats();
     }
 
     /**
@@ -33,20 +39,19 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Drive.driveTeleop();
-        Arm.doStats();
         Arm.DoTeleop();
+        Stats();
     }
     
     public void disabledPeriodic(){
-    	Arm.doStats();
-    	Drive.doStats();
+    	Stats();
     }
     
     /**
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-    
+    	Stats();
     }
     
 }
