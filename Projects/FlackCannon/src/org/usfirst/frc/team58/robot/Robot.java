@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
+
 public class Robot extends IterativeRobot {
     /**
      * This function is run when the robot is first started up and should be
@@ -23,10 +24,9 @@ public class Robot extends IterativeRobot {
 		
     public void robotInit() {
     	LiveWindow.setEnabled(true);
-
+    	
     }
 
-<<<<<<< HEAD
     public void autonomousInit(){
     	timer.start();
     }
@@ -35,25 +35,18 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	if(timer.get() < 20){
-    		
+    	
+    	if(timer.get() < 10){
+    		Drive.drive(0.5, 0, 0);
     	}
     }     
-=======
+    
     private void Stats(){
     	Arm.doStats();
     	Drive.doStats();
     	LiveWindow.run();
     }
     
-    /**
-     * This function is called periodically during autonomous
-     */
-    public void autonomousPeriodic() {
-    	Stats();
-    }
->>>>>>> 1e420f1de846535d9f6c18fb79ab6b0ec555fb2f
-
     /**
      * This function is called periodically during operator control
      */
@@ -71,11 +64,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-<<<<<<< HEAD
-    	
-=======
     	Stats();
->>>>>>> 1e420f1de846535d9f6c18fb79ab6b0ec555fb2f
     }
     
 }
