@@ -84,4 +84,8 @@ public class Drive {
     	SmartDashboard.putNumber("POV 1: ", Joysticks.driver.getPOV(1));
     }
     
+    public static void drive(double magnitude, double direction, double rotation){
+    	
+    }
+    
 }

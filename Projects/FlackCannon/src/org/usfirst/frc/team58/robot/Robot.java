@@ -2,6 +2,8 @@
 package org.usfirst.frc.team58.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
@@ -16,17 +18,26 @@ public class Robot extends IterativeRobot {
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
+	
+	private static Timer timer = new Timer();
 		
     public void robotInit() {
     	LiveWindow.setEnabled(true);
+
     }
 
-    /**
+    public void autonomousInit(){
+    	timer.start();
+    }
+
+    /*
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-
-    }
+    	if(timer.get() < 20){
+    		
+    	}
+    }     
 
     /**
      * This function is called periodically during operator control
@@ -46,7 +57,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-    
+    	
     }
     
 }
