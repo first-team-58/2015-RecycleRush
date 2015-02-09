@@ -23,8 +23,9 @@ public class Robot extends IterativeRobot {
 	private static Timer timer = new Timer();
 		
     public void robotInit() {
-    	LiveWindow.setEnabled(true);
-    	
+    	//
+    	Drive.init();
+    	Arm.init();
     }
 
     public void autonomousInit(){
@@ -44,7 +45,6 @@ public class Robot extends IterativeRobot {
     private void Stats(){
     	Arm.doStats();
     	Drive.doStats();
-    	LiveWindow.run();
     }
     
     /**
@@ -54,10 +54,12 @@ public class Robot extends IterativeRobot {
         Drive.driveTeleop();
         Arm.DoTeleop();
         Stats();
+        LiveWindow.run();
     }
     
     public void disabledPeriodic(){
     	Stats();
+    	LiveWindow.run();
     }
     
     /**
@@ -65,6 +67,7 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
     	Stats();
+    	LiveWindow.run();
     }
     
 }
