@@ -1,8 +1,10 @@
 package org.usfirst.frc.team58.robot;
 
 //import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /*
@@ -23,10 +25,18 @@ public class Drive {
 	private static Talon RightFront = new Talon(3);
 
 	//create gyroscope
-    //private static Gyro gyroscope = new Gyro(0);
+    private static Gyro gyroscope = new Gyro(0);
     
     //drivebase
     private static RobotDrive DriveBase = new RobotDrive(LeftFront, LeftRear, RightFront, RightRear);
+    
+    public static void init() {
+    	LiveWindow.addActuator("Drive", "Left Rear", LeftRear);
+    	LiveWindow.addActuator("Drive", "Left Front", LeftFront);
+    	LiveWindow.addActuator("Drive", "Right Rear", RightRear);
+    	LiveWindow.addActuator("Drive", "Right Front", RightFront);
+    	LiveWindow.addSensor("Drive", "Gyro", gyroscope);
+    }
     
     public static void driveTeleop(){
 	    if (Joysticks.driver.getPOV(0) == -1){
