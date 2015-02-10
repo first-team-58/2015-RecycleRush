@@ -13,6 +13,8 @@ public class Arm {
 	private static Talon ArmLeft = new Talon(6);
 	private static Talon ArmRight = new Talon(7);
 	
+	private static Talon collector = new Talon(8);
+	
 	private static DigitalInput LimitUp = new DigitalInput(0);
 	private static DigitalInput LimitDown = new DigitalInput(1);
 	
@@ -33,11 +35,20 @@ public class Arm {
 		// Make sure motors go at arm speed
 		ArmLeft.set(speed);
 		ArmRight.set(speed);
-	}
 		
+	}
+	
+	private static void SetCollector(double collectorSpeed){
+		//collector speed
+				collector.set(collectorSpeed);
+	}
+	
 	public static void DoTeleop(){
 		double speed = 0;
+		double collectorSpeed = 0;
 		boolean fast = Joysticks.operator.getRawButton(5);
+		
+		double pad = Joysticks.operator.getPOV(0);
 		
 		if (Joysticks.operator.getRawButton(4) && LimitUp.get()){
 			// Go up if Y is pressed and limit switch not triggered
@@ -53,7 +64,16 @@ public class Arm {
 			speed *= 2;
 		}
 		
-		SetArm(speed);
+		//control collector
+		if(pad < 90 && pad > 270){
+			collectorSpeed = 0.5;
+		} else if(pad > 270 && pad < 90){
+			collectorSpeed = -0.5;
+		} else if(pad == -1){
+			collectorSpeed = 0;
+		}
 		
+		SetArm(speed);
+		SetCollector(collectorSpeed);
 	}
 }
