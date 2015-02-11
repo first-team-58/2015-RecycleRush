@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -22,7 +24,9 @@ public class Robot extends IterativeRobot {
      */
 	
 	private static Timer timer = new Timer();
-	CameraServer server;
+	private static CameraServer server;
+	private static SendableChooser autochooser;
+	
     public void robotInit() {
     	try {
         server = CameraServer.getInstance();
@@ -32,23 +36,36 @@ public class Robot extends IterativeRobot {
     	} catch (Exception e){
     		// this is NONFATAL
     	}
-        
+    	
+        autochooser = new SendableChooser();
+        autochooser.addDefault("--NONE--", 0);
+        autochooser.addDefault("Simple", 1);
+        autochooser.addDefault("Crate", 2);
+        SmartDashboard.putData("AutoChooser", autochooser);
     	Drive.init();
     	Arm.init();
     }
 
+    private static int program;
     public void autonomousInit(){
     	timer.start();
+    	try{
+    	program = (int)autochooser.getSelected();
+    	} catch (Exception e){}
+    	SmartDashboard.putNumber("Auto", program);
+    	Auto.Init();
     }
 
     /*
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	
+    	Auto.run(program);
+    	/*
     	if(timer.get() < 10){
     		Drive.drive(0.5, 0, 0);
     	}
+    	*/
     }     
     
     private void Stats(){

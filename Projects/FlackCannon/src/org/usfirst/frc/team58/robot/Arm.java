@@ -29,7 +29,7 @@ public class Arm {
 		SmartDashboard.putBoolean("LimitDown", LimitDown.get());
 	}
 	
-	private static void SetArm(double speed) {
+	public static void SetArm(double speed) {
 		// Make sure motors go at arm speed
 		ArmLeft.set(speed);
 		ArmRight.set(speed);
