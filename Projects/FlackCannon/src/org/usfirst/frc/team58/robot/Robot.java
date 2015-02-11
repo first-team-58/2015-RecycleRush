@@ -24,11 +24,14 @@ public class Robot extends IterativeRobot {
 	private static Timer timer = new Timer();
 	CameraServer server;
     public void robotInit() {
+    	try {
         server = CameraServer.getInstance();
         server.setQuality(50);
         //the camera name (ex "cam0") can be found through the roborio web interface
         server.startAutomaticCapture("cam1");
-        
+    	} catch (Exception e){
+    		// this is NONFATAL
+    	}
         
     	Drive.init();
     	Arm.init();
