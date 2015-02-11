@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team58.robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
@@ -21,9 +22,14 @@ public class Robot extends IterativeRobot {
      */
 	
 	private static Timer timer = new Timer();
-		
+	CameraServer server;
     public void robotInit() {
-    	//
+        server = CameraServer.getInstance();
+        server.setQuality(50);
+        //the camera name (ex "cam0") can be found through the roborio web interface
+        server.startAutomaticCapture("cam1");
+        
+        
     	Drive.init();
     	Arm.init();
     }

@@ -3,7 +3,7 @@ package org.usfirst.frc.team8855.robot;
 import org.usfirst.frc.team8855.robot.Joysticks;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,7 +24,9 @@ public class Arm {
 		LiveWindow.addActuator("Arm", "Right", ArmRight);
 		LiveWindow.addSensor("Arm", "Limit Up", LimitUp);
 		LiveWindow.addSensor("Arm", "Limit Down", LimitDown);
-    }
+  
+	}
+
 	public static void doStats(){
 		// Only put smart dashboard stuff here
 		// Put debug stuff on the dashboard
@@ -39,10 +41,12 @@ public class Arm {
 		
 	}
 	
+
 	private static void SetCollector(double collectorSpeed){
 		//collector speed
 				collector.set(collectorSpeed);
 	}
+
 	
 	public static void DoTeleop(){
 		double speed = 0;
@@ -58,23 +62,26 @@ public class Arm {
 			// Go down if X is pressed and limit switch not triggered
 			speed = -0.5;
 		}
-		
-		//check for active slow button in up or down is pressed
-		if(fast){
-			//double the speed
+		if (fast) {
 			speed *= 2;
+		} else {
+		speed = speed;
 		}
 		
 		//control collector
-		if(pad < 90 && pad > 270){
-			collectorSpeed = 0.5;
-		} else if(pad > 270 && pad < 90){
-			collectorSpeed = -0.5;
-		} else if(pad == -1){
-			collectorSpeed = 0;
-		}
+				if(pad < 90 && pad > 270){
+					collectorSpeed = 0.5;
+				} else if(pad > 270 && pad < 90){
+					collectorSpeed = -0.5;
+				} else if(pad == -1){
+					collectorSpeed = 0;
+				}
+				
+				SetArm(speed);
+				SetCollector(collectorSpeed);
 		
 		SetArm(speed);
-		SetCollector(collectorSpeed);
+		
+	
 	}
 }

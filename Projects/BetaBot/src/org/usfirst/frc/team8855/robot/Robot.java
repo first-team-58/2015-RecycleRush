@@ -19,23 +19,14 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
 	
-	private static Talon LeftRear;
-	private static Talon RightRear;
-	private static Talon LeftFront;
-	private static Talon RightFront;
+
 		
     public void robotInit() {
-    	LiveWindow.setEnabled(true);
     	
-    	LeftRear = new Talon(0);
-    	RightRear = new Talon(1);
-    	LeftFront = new Talon(2);
-    	RightFront = new Talon(3);
-    	
-    	LiveWindow.addActuator("Left Rear", null, LeftRear);
-    	LiveWindow.addActuator("RightRear", null, RightRear);
-    	LiveWindow.addActuator("LeftFront", null, LeftFront);
-    	LiveWindow.addActuator("RightFront", null, RightFront);
+    	//
+    	    	Drive.init();
+    	    	Arm.init();
+
     	
     }
 
@@ -44,6 +35,9 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
 
+    	//if(timer.get() < 10){
+     	//	Drive.drive(0.5, 0, 0);
+    	//}
     }
 
     /**
