@@ -36,6 +36,11 @@ public class Drive {
     	LiveWindow.addActuator("Drive", "Right Rear", RightRear);
     	LiveWindow.addActuator("Drive", "Right Front", RightFront);
     	LiveWindow.addSensor("Drive", "Gyro", gyroscope);
+    	gyroscope.initGyro();
+    }
+    
+    public static void reset(){
+    	gyroscope.reset();
     }
     
     public static void driveTeleop(){
@@ -96,6 +101,9 @@ public class Drive {
     
     public static void drive(double magnitude, double direction, double rotation){
     	DriveBase.mecanumDrive_Polar(magnitude, direction, rotation);
+    }
+    public static void driveCartesian(double x, double y, double rotation){
+    	DriveBase.mecanumDrive_Cartesian(x, y, rotation, gyroscope.getAngle());
     }
     
 }

@@ -39,8 +39,8 @@ public class Robot extends IterativeRobot {
     	
         autochooser = new SendableChooser();
         autochooser.addDefault("--NONE--", 0);
-        autochooser.addDefault("Simple", 1);
-        autochooser.addDefault("Crate", 2);
+        autochooser.addDefault("Forward", 1);
+        autochooser.addDefault("Crabwalk", 2);
         SmartDashboard.putData("AutoChooser", autochooser);
     	Drive.init();
     	Arm.init();
