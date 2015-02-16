@@ -105,5 +105,7 @@ public class Drive {
     public static void driveCartesian(double x, double y, double rotation){
     	DriveBase.mecanumDrive_Cartesian(x, y, rotation, gyroscope.getAngle());
     }
-    
+    public static double getGyro(){
+    	return gyroscope.getAngle();
+    }
 }

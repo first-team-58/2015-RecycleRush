@@ -12,10 +12,13 @@ public class Auto {
 	public static void run(int program){
 		switch(program){
 			case 1:
-				forward();
+				reset();
 				break;
 			case 2:
 				crab();
+				break;
+			case 3:
+				container();
 				break;
 			default:
 				noop();
@@ -24,6 +27,10 @@ public class Auto {
 	}
 	private static void noop(){
 		Arm.SetArm(0);
+		Drive.drive(0, 0, 0);
+	}
+	private static void reset(){
+		Arm.SetArm(-.5);
 		Drive.drive(0, 0, 0);
 	}
 
@@ -45,5 +52,22 @@ public class Auto {
 			Drive.driveCartesian(.5, 0, 0);
 		}
 	}
+	}
+	
+	public static void container() {
+		double now = time.get();
+		if (now < 3){
+			Arm.SetArm(0.5);
+		}else {
+			Arm.SetArm(0);
+			double angle = Drive.getGyro();
+			if (now < 4.5){
+				Drive.driveCartesian(0, .4, 0);
+			}else if (angle > -85) {
+				Drive.driveCartesian(0, 0, -.25);
+			}else {
+				Drive.driveCartesian(0, 0, 0);
+			}
+		}
 	}
 }
