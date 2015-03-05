@@ -70,9 +70,18 @@ public class Arm {
 		}
 		
 		//control collector
-		if(pad < 90 && pad > 270){
+		if(pad > 0 && pad < 180){
 			collectorSpeed = 0.5;
-		} else if(pad > 270 && pad < 90){
+		} else if(pad < 0 && pad > 180){
+			collectorSpeed = -0.5;
+		} else if(pad == -1){
+			collectorSpeed = 0;
+		}
+		
+		//control collector
+		if(Joysticks.operator.getRawButton(1)){
+			collectorSpeed = 0.5;
+		} else if(Joysticks.operator.getRawButton(2)){
 			collectorSpeed = -0.5;
 		} else if(pad == -1){
 			collectorSpeed = 0;
