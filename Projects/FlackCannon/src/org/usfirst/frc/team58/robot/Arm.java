@@ -43,7 +43,7 @@ public class Arm {
 		
 	}
 	
-	private static void SetCollector(double collectorSpeed){
+	public static void SetCollector(double collectorSpeed){
 		//collector speed
 				collector.set(collectorSpeed);
 	}
