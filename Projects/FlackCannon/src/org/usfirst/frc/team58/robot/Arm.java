@@ -48,6 +48,28 @@ public class Arm {
 				collector.set(collectorSpeed);
 	}
 	
+	private static void GoAngle(double target){
+		double now = angle.getAverageVoltage();
+		double diff = target - now;
+		double speed = 0;
+		if (diff < 0){
+			//down
+			if (diff < -0.1){
+				speed = -1;
+			}else if (diff < -0.02){
+				speed = -0.3;
+			}
+		}else {
+			//up
+			if (diff > 0.1){
+				speed = .5;
+			}else if (diff > 0.02){
+				speed = 0.2;
+			}
+		}
+		SetArm(speed);
+	}
+	
 	public static void DoTeleop(){
 		double speed = 0;
 		double collectorSpeed = 0;
@@ -87,7 +109,11 @@ public class Arm {
 			collectorSpeed = 0;
 		}
 		
-		SetArm(speed);
+		if (Joysticks.operator.getRawButton(6)){
+			GoAngle(1.52);
+		}else {
+			SetArm(speed);
+		}
 		SetCollector(collectorSpeed);
 	}
 	
