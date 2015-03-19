@@ -95,11 +95,11 @@ public class Auto {
 				Arm.SetArm(0);
 				Arm.SetCollector(0.3);
 				Drive.drive(0, 0, 0);				
-			} else if (now < 10.2) { //for 2.5s
+			} else if (now < 11.5) { //for 2.5s
 				Arm.SetArm(1);
-				Arm.SetCollector(0.5);
+				Arm.SetCollector(0.3);
 				Drive.drive(.25, 180, 0);
-			} else if (now < 11.7) { //for 1.5s
+			} else if (now < 11.6) { //for 1.5s
 				Arm.SetArm(1);
 				Arm.SetCollector(0.5);
 				Drive.drive(0, 180, 0);
