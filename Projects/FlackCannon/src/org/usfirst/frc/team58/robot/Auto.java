@@ -74,32 +74,32 @@ public class Auto {
 	
 	public static void step(){
 		double now = time.get();
-		if (Arm.GetAngle()<1.57 && now < 4.5){
-			Arm.SetArm(0.5);
+		if (Arm.GetAngle()<1.59 && now < 4.5){
+			Arm.SetArm(0.5); //raise arm to level
 			Arm.SetCollector(0);
 			Drive.driveCartesian(0, 0, 0);
 		} else {
 			if (now < 4.5) {
 				Arm.SetArm(0);
-				Arm.SetCollector(0);
+				Arm.SetCollector(0); //wait
 				Drive.drive(0, 0, 0);
 			} else if(now < 6.7){  //for 1.9s
 				Arm.SetArm(0);
-				Arm.SetCollector(-0.5);
+				Arm.SetCollector(-0.45); //bring tape out
 				Drive.drive(0, 0, 0);
-			} else if (now < 7.2){ //for .5s
+			} else if (now < 7){ //for .5s
 				Arm.SetArm(-0.5);
-				Arm.SetCollector(0);
+				Arm.SetCollector(0); //drop arm
 				Drive.drive(0, 0, 0);	
-			} else if (now < 7.7){ //for .5s
+			} else if (now < 7.5){ //for .5s
 				Arm.SetArm(0);
-				Arm.SetCollector(0.3);
+				Arm.SetCollector(0.15); //hook container with tape
 				Drive.drive(0, 0, 0);				
-			} else if (now < 11.5) { //for 2.5s
+			} else if (now < 10.2) { //for 2.5s
 				Arm.SetArm(1);
-				Arm.SetCollector(0.3);
+				Arm.SetCollector(0.3); //pull back and lift arm
 				Drive.drive(.25, 180, 0);
-			} else if (now < 11.6) { //for 1.5s
+			} else if (now < 11.7) { //for 1.5s
 				Arm.SetArm(1);
 				Arm.SetCollector(0.5);
 				Drive.drive(0, 180, 0);

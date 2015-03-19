@@ -47,26 +47,25 @@ public class Arm {
 		//collector speed
 				collector.set(collectorSpeed);
 	}
-	
+	private static double odiff = 0.0;
 	private static void GoAngle(double target){
 		double now = angle.getAverageVoltage();
 		double diff = target - now;
 		double speed = 0;
-		if (diff < 0){
+		if (diff < 0 && odiff < 0){
 			//down
 			if (diff < -0.1){
 				speed = -1;
-			}else if (diff < -0.02){
-				speed = -0.3;
+			}else if (diff < -0.05){
+				speed = -0.2;
 			}
-		}else {
+		}else if (odiff > 0) {
 			//up
-			if (diff > 0.1){
-				speed = .5;
-			}else if (diff > 0.02){
+			if (diff > 0.05){
 				speed = 0.2;
 			}
 		}
+		odiff = diff;
 		SetArm(speed);
 	}
 	
@@ -112,6 +111,7 @@ public class Arm {
 		if (Joysticks.operator.getRawButton(6)){
 			GoAngle(1.52);
 		}else {
+			odiff = 0.0;
 			SetArm(speed);
 		}
 		SetCollector(collectorSpeed);
