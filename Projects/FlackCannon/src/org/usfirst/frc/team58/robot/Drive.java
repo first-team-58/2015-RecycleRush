@@ -55,7 +55,7 @@ public class Drive {
         double rotation = 0;
         
         //magnitudes initialy set from Joystick's analog stick
-        double mag = 0.25;
+        double mag = 0.125;
         double dir = Joysticks.driver.getPOV(0);
         
         //drive with magnitudes and roatation

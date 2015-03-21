@@ -47,27 +47,70 @@ public class Arm {
 		//collector speed
 				collector.set(collectorSpeed);
 	}
-	private static double odiff = 0.0;
-	private static void GoAngle(double target){
+	
+	
+	private static boolean stage2;
+	private static boolean ready = true;
+	
+	public static void GoAngle(double target){
+		
 		double now = angle.getAverageVoltage();
 		double diff = target - now;
 		double speed = 0;
-		if (diff < 0 && odiff < 0){
-			//down
-			if (diff < -0.1){
-				speed = -1;
-			}else if (diff < -0.05){
-				speed = -0.2;
+		if (stage2){
+			if (diff < 0){
+				//down
+				if (diff < -0.1){
+					speed = -0.5;
+				}else if (diff < -0.02){
+					speed = -0.3;
+				}
+			}else {
+				//up
+				if (diff > 0.02){
+					speed = 0.3;
+				}
 			}
-		}else if (odiff > 0) {
-			//up
-			if (diff > 0.05){
-				speed = 0.2;
+		} else {
+			if (now > 1.75){
+				stage2 = true;
 			}
+			speed = 1.0;
 		}
-		odiff = diff;
+		if (speed == 0.0){
+			ready = false;
+		}
+		if (!ready){
+			speed = 0.0;
+		}
 		SetArm(speed);
 	}
+	
+	
+	/* TESTING FOR DIRECT ARM SETTING
+		private static void GoAngle(double target){
+		
+			double now = angle.getAverageVoltage();
+			double diff = target - now;
+			double speed = 0;
+			
+				if (diff < 0){ //down
+					if (diff < -0.1){
+						speed = -1;
+					}else if (diff < -0.05){
+						speed = -0.3;
+					}
+				}else { //up
+					if (diff > 0.05){
+						speed = 0.3;
+					} else {
+						speed = 0;
+					}
+				}
+				
+				SetArm(speed);
+		}
+		*/
 	
 	public static void DoTeleop(){
 		double speed = 0;
@@ -111,7 +154,8 @@ public class Arm {
 		if (Joysticks.operator.getRawButton(6)){
 			GoAngle(1.52);
 		}else {
-			odiff = 0.0;
+			ready = true;
+			stage2 = false;
 			SetArm(speed);
 		}
 		SetCollector(collectorSpeed);
