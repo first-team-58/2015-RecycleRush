@@ -35,7 +35,7 @@ public class Arm {
 	
 	public static void SetArm(double speed) {
 		// Make sure motors go at arm speed
-		if ((speed > 0 && LimitUp.get()) || (speed < 0 && !LimitDown.get())){
+		if ((speed > 0 && !LimitUp.get()) || (speed < 0 && !LimitDown.get())){ //GODDARD check down is false
 			speed = 0;
 		}
 		ArmLeft.set(speed);
@@ -57,17 +57,22 @@ public class Arm {
 		double now = angle.getAverageVoltage();
 		double diff = target - now;
 		double speed = 0;
-		if (stage2){
+		if (true){
 			if (diff < 0){
 				//down
 				if (diff < -0.1){
 					speed = -0.5;
-				}else if (diff < -0.02){
+				}else if (diff < -0.01){
 					speed = -0.3;
 				}
 			}else {
 				//up
-				if (diff > 0.02){
+				if (diff > 0.01){
+					
+				}
+				if (diff > 0.1){
+					speed = 0.5;
+				}else if (diff > 0.01){
 					speed = 0.3;
 				}
 			}
@@ -78,7 +83,7 @@ public class Arm {
 			speed = 1.0;
 		}
 		if (speed == 0.0){
-			ready = false;
+		//	ready = false;
 		}
 		if (!ready){
 			speed = 0.0;
