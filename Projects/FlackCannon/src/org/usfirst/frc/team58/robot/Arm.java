@@ -35,7 +35,7 @@ public class Arm {
 	
 	public static void SetArm(double speed) {
 		// Make sure motors go at arm speed
-		if ((speed > 0 && !LimitUp.get()) || (speed < 0 && !LimitDown.get())){
+		if ((speed > 0 && LimitUp.get()) || (speed < 0 && !LimitDown.get())){
 			speed = 0;
 		}
 		ArmLeft.set(speed);
@@ -119,10 +119,10 @@ public class Arm {
 		
 		double pad = Joysticks.operator.getPOV(0);
 		
-		if (Joysticks.operator.getRawButton(4) && LimitUp.get()){
+		if (Joysticks.operator.getRawButton(4)){
 			// Go up if Y is pressed and limit switch not triggered
 			speed = 0.5;
-		} else if(Joysticks.operator.getRawButton(3) && LimitDown.get()){ 
+		} else if(Joysticks.operator.getRawButton(3)){ 
 			// Go down if X is pressed and limit switch not triggered
 			speed = -0.5;
 		}

@@ -75,7 +75,7 @@ public class Auto {
 	public static void step(){
 		double now = time.get();
 		if (now < 4.5){
-			Arm.GoAngle(1.59);
+			Arm.GoAngle(1.57);
 			Arm.SetCollector(0);
 			Drive.driveCartesian(0, 0, 0);
 		} else {
