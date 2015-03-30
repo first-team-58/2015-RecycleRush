@@ -18,6 +18,7 @@ public class Arm {
 	private static DigitalInput LimitDown = new DigitalInput(0);
 	
 	private static AnalogInput angle = new AnalogInput(1); 
+	private static AnalogInput distance = new AnalogInput(2); 
 	
 	public static void init() {
 		LiveWindow.addActuator("Arm", "Left", ArmLeft);
@@ -25,6 +26,7 @@ public class Arm {
 		LiveWindow.addSensor("Arm", "Limit Up", LimitUp);
 		LiveWindow.addSensor("Arm", "Limit Down", LimitDown);
 		LiveWindow.addSensor("Arm", "Angle", angle);
+		LiveWindow.addSensor("Arm", "IR Sensor", distance);
     }
 	public static void doStats(){
 		// Only put smart dashboard stuff here
@@ -70,6 +72,7 @@ public class Arm {
 				if (diff > 0.01){
 					
 				}
+				
 				if (diff > 0.1){
 					speed = 0.5;
 				}else if (diff > 0.01){
@@ -91,31 +94,27 @@ public class Arm {
 		SetArm(speed);
 	}
 	
-	
-	/* TESTING FOR DIRECT ARM SETTING
-		private static void GoAngle(double target){
-		
-			double now = angle.getAverageVoltage();
-			double diff = target - now;
-			double speed = 0;
-			
-				if (diff < 0){ //down
-					if (diff < -0.1){
-						speed = -1;
-					}else if (diff < -0.05){
-						speed = -0.3;
-					}
-				}else { //up
-					if (diff > 0.05){
-						speed = 0.3;
-					} else {
-						speed = 0;
-					}
-				}
-				
-				SetArm(speed);
+	public static void GoDistance(double target){
+		double now = distance.getAverageVoltage();
+		double diff = target - now;
+		double speed = 0;
+		if (diff < 0){
+			//up
+			if (diff < -0.1){
+				speed = 0.5;
+			}else if (diff < -0.01){
+				speed = 0.3;
+			}
+		}else {
+			//down
+			if (diff > 0.1){
+				speed = -0.5;
+			}else if (diff > 0.01){
+				speed = -0.3;
+			}
 		}
-		*/
+		SetArm(speed);
+	}
 	
 	public static void DoTeleop(){
 		double speed = 0;
@@ -157,7 +156,7 @@ public class Arm {
 		}
 		
 		if (Joysticks.operator.getRawButton(6)){
-			GoAngle(1.52);
+			GoDistance(1.48); //change for IR value
 		}else {
 			ready = true;
 			stage2 = false;
