@@ -116,6 +116,23 @@ public class Arm {
 		SetArm(speed);
 	}
 	
+	/*
+	public static void GoDistance(double target){
+        double now = distance.getAverageVoltage();
+        double diff = target - now;
+        double speed = 0;
+        boolean reverse = diff < 0;
+        diff = Math.abs(diff);
+        
+        if (diff > 0.1){
+            speed = 0.5;
+        }else if (diff > 0.01){
+            speed = 0.3;
+        }
+        speed *= reverse? -1 : 1;
+        SetArm(speed);
+    } */
+	
 	public static void DoTeleop(){
 		double speed = 0;
 		double collectorSpeed = 0;

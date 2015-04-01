@@ -2,6 +2,7 @@ package org.usfirst.frc.team58.robot;
 
 //import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -24,6 +25,8 @@ public class Drive {
 	private static Talon LeftFront = new Talon(2);
 	private static Talon RightFront = new Talon(3);
 
+	private static Relay lights = new Relay(0);
+	
 	//create gyroscope
     private static Gyro gyroscope = new Gyro(0);
     
@@ -48,6 +51,13 @@ public class Drive {
 	    	driveStick();
 	    } else {
 	    	drivePOV();
+	    }
+	    
+	    //lights
+	    if(Joysticks.driver.getRawButton(1)){
+	    	lights.set(Relay.Value.kForward);
+	    } else {
+	    	lights.set(Relay.Value.kOff);
 	    }
     }
     private static void drivePOV(){
