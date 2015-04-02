@@ -2,6 +2,7 @@ package org.usfirst.frc.team58.robot;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,7 +19,8 @@ public class Arm {
 	private static DigitalInput LimitDown = new DigitalInput(0);
 	
 	private static AnalogInput angle = new AnalogInput(1); 
-	private static AnalogInput distance = new AnalogInput(2); 
+	private static AnalogInput IR = new AnalogInput(2);
+	private static DigitalOutput US = new DigitalOutput(0);
 	
 	public static void init() {
 		LiveWindow.addActuator("Arm", "Left", ArmLeft);
@@ -26,7 +28,7 @@ public class Arm {
 		LiveWindow.addSensor("Arm", "Limit Up", LimitUp);
 		LiveWindow.addSensor("Arm", "Limit Down", LimitDown);
 		LiveWindow.addSensor("Arm", "Angle", angle);
-		LiveWindow.addSensor("Arm", "IR Sensor", distance);
+		LiveWindow.addSensor("Arm", "IR Sensor", IR);
     }
 	public static void doStats(){
 		// Only put smart dashboard stuff here
@@ -59,79 +61,43 @@ public class Arm {
 		double now = angle.getAverageVoltage();
 		double diff = target - now;
 		double speed = 0;
-		if (true){
-			if (diff < 0){
-				//down
-				if (diff < -0.1){
-					speed = -0.5;
-				}else if (diff < -0.01){
-					speed = -0.3;
-				}
-			}else {
-				//up
-				if (diff > 0.01){
-					
-				}
-				
-				if (diff > 0.1){
-					speed = 0.5;
-				}else if (diff > 0.01){
-					speed = 0.3;
-				}
-			}
-		} else {
-			if (now > 1.75){
-				stage2 = true;
-			}
-			speed = 1.0;
-		}
-		if (speed == 0.0){
-		//	ready = false;
-		}
-		if (!ready){
-			speed = 0.0;
-		}
-		SetArm(speed);
-	}
-	
-	public static void GoDistance(double target){
-		double now = distance.getAverageVoltage();
-		double diff = target - now;
-		double speed = 0;
 		if (diff < 0){
-			//up
-			if (diff < -0.1){
-				speed = 0.5;
-			}else if (diff < -0.01){
-				speed = 0.3;
-			}
-		}else {
 			//down
-			if (diff > 0.1){
+			if (diff < -0.1){
 				speed = -0.5;
-			}else if (diff > 0.01){
+			}else if (diff < -0.01){
 				speed = -0.3;
 			}
+		}else {
+			//up
+			if (diff > 0.1){
+				speed = 0.5;
+			}else if (diff > 0.01){
+				speed = 0.3;
+			}
 		}
 		SetArm(speed);
 	}
 	
-	/*
-	public static void GoDistance(double target){
-        double now = distance.getAverageVoltage();
+	public static void GoIR(double target){
+        double now = IR.getAverageVoltage();
         double diff = target - now;
         double speed = 0;
-        boolean reverse = diff < 0;
+        boolean reverse = diff > 0;
         diff = Math.abs(diff);
         
         if (diff > 0.1){
             speed = 0.5;
         }else if (diff > 0.01){
-            speed = 0.3;
+            speed = 0.25;
         }
         speed *= reverse? -1 : 1;
         SetArm(speed);
-    } */
+    } 
+	
+	public static void GoUS(double target){
+		
+	}
 	
 	public static void DoTeleop(){
 		double speed = 0;
@@ -173,7 +139,8 @@ public class Arm {
 		}
 		
 		if (Joysticks.operator.getRawButton(6)){
-			GoDistance(1.48); //change for IR value
+			//GoAngle(2.11); //angle
+			GoIR(1.48); //IR
 		}else {
 			ready = true;
 			stage2 = false;

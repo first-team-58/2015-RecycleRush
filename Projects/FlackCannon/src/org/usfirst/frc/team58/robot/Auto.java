@@ -75,7 +75,10 @@ public class Auto {
 	public static void step(){
 		double now = time.get();
 		if (now < 4.5){
-			Arm.GoDistance(1.528); //change for appropriate IR reading of inclin arm height BEFORE 1.57
+			
+			//Arm.GoAngle(1.528); 
+			Arm.GoIR(1.6); //guess
+			
 			Arm.SetCollector(0);
 			Drive.driveCartesian(0, 0, 0);
 		} else {
