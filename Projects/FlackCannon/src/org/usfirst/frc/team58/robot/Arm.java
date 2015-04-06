@@ -20,7 +20,7 @@ public class Arm {
 	
 	private static AnalogInput angle = new AnalogInput(1); 
 	private static AnalogInput IR = new AnalogInput(2);
-	private static DigitalOutput US = new DigitalOutput(0);
+	//private static DigitalOutput US = new DigitalOutput(0);
 	
 	public static void init() {
 		LiveWindow.addActuator("Arm", "Left", ArmLeft);
@@ -86,18 +86,14 @@ public class Arm {
         boolean reverse = diff > 0;
         diff = Math.abs(diff);
         
-        if (diff > 0.1){
+        if (diff > 0.2){
             speed = 0.5;
-        }else if (diff > 0.01){
+        }else if (diff > 0.02){
             speed = 0.25;
         }
         speed *= reverse? -1 : 1;
         SetArm(speed);
     } 
-	
-	public static void GoUS(double target){
-		
-	}
 	
 	public static void DoTeleop(){
 		double speed = 0;
@@ -138,6 +134,7 @@ public class Arm {
 			collectorSpeed = 0;
 		}
 		
+		//tote shute angle button
 		if (Joysticks.operator.getRawButton(6)){
 			//GoAngle(2.11); //angle
 			GoIR(1.48); //IR
@@ -147,6 +144,11 @@ public class Arm {
 			SetArm(speed);
 		}
 		SetCollector(collectorSpeed);
+		
+		
+		if(Joysticks.operator.getPOV(0) == 0){
+			GoIR(2.035);
+		}
 	}
 	
 	public static double GetAngle(){

@@ -37,7 +37,7 @@ public class Robot extends IterativeRobot {
     		// this is NONFATAL
     	}
     	
-        autochooser = new SendableChooser();
+    	autochooser = new SendableChooser();
         autochooser.addDefault("--NONE--", 0);
         autochooser.addDefault("RESET", 1);
         autochooser.addDefault("Push Carpet", 5);

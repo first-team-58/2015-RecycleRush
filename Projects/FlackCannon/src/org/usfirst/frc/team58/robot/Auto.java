@@ -77,7 +77,7 @@ public class Auto {
 		if (now < 4.5){
 			
 			//Arm.GoAngle(1.528); 
-			Arm.GoIR(1.6); //guess
+			Arm.GoIR(1.4); //guess
 			
 			Arm.SetCollector(0);
 			Drive.driveCartesian(0, 0, 0);
@@ -88,7 +88,7 @@ public class Auto {
 				Drive.drive(0, 0, 0);
 			} else if(now < 6.7){  //for 1.9s
 				Arm.SetArm(0);
-				Arm.SetCollector(-0.45); //bring tape out
+				Arm.SetCollector(-0.5); //bring tape out
 				Drive.drive(0, 0, 0);
 			} else if (now < 7){ //for .5s
 				Arm.SetArm(-0.8);
