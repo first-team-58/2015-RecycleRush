@@ -77,7 +77,7 @@ public class Auto {
 		if (now < 4.5){
 			
 			//Arm.GoAngle(1.528); 
-			Arm.GoIR(1.4); //guess
+			Arm.GoIR(1.4); 
 			
 			Arm.SetCollector(0);
 			Drive.driveCartesian(0, 0, 0);

@@ -20,7 +20,6 @@ public class Arm {
 	
 	private static AnalogInput angle = new AnalogInput(1); 
 	private static AnalogInput IR = new AnalogInput(2);
-	//private static DigitalOutput US = new DigitalOutput(0);
 	
 	public static void init() {
 		LiveWindow.addActuator("Arm", "Left", ArmLeft);
