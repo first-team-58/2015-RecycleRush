@@ -61,12 +61,23 @@ public class Drive {
 	    }
     }
     private static void drivePOV(){
+    	//LB button for speed boost
+        boolean fast = Joysticks.driver.getRawButton(5);
+        
     	//get three axis of rotation for joystick
         double rotation = 0;
-        
         //magnitudes initialy set from Joystick's analog stick
-        double mag = 0.125;
+        double mag;
         double dir = Joysticks.driver.getPOV(0);
+        
+        //check if speed button in pressed
+        if(fast){
+        	//set speed to half
+        	mag = 0.5;
+        } else {
+        	//set speed to one eighth
+        	mag = 0.125;
+        }
         
         //drive with magnitudes and roatation
         //gyro angle set to 0
@@ -81,7 +92,8 @@ public class Drive {
         double mag = Joysticks.driver.getMagnitude();
         double dir = Joysticks.driver.getDirectionDegrees();
         
-                boolean fast = Joysticks.driver.getRawButton(5);
+        //LB button for speed boost
+        boolean fast = Joysticks.driver.getRawButton(5);
         
         //check for deadzone and set magnitude for joystick
         if(Math.abs(mag) < .1){

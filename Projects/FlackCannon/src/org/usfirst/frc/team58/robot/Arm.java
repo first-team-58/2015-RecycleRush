@@ -145,8 +145,13 @@ public class Arm {
 		SetCollector(collectorSpeed);
 		
 		//go to container lip height
-		if(Joysticks.operator.getPOV(0) == 0){
+		if(Joysticks.operator.getPOV(0) == 0){ //up on d-pad
 			GoIR(2.07);
+		}
+		
+		//go to height for grabbing step container
+		if(Joysticks.operator.getPOV(0) == 180){ //down on d-pad
+			GoIR(1.4);
 		}
 	}
 	
