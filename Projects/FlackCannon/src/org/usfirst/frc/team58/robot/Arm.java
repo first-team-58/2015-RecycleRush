@@ -144,9 +144,9 @@ public class Arm {
 		}
 		SetCollector(collectorSpeed);
 		
-		
+		//go to container lip height
 		if(Joysticks.operator.getPOV(0) == 0){
-			GoIR(2.035);
+			GoIR(2.07);
 		}
 	}
 	

@@ -44,6 +44,7 @@ public class Robot extends IterativeRobot {
         autochooser.addDefault("Push Scoring", 2);
         autochooser.addDefault("Container", 3);
         autochooser.addDefault("Step", 4);
+        autochooser.addDefault("Step Platform", 6);
         SmartDashboard.putData("AutoChooser", autochooser);
     	Drive.init();
     	Arm.init();
