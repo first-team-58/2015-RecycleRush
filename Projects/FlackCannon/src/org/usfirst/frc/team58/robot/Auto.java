@@ -78,7 +78,7 @@ public class Auto {
 	public static void step(){
 		double now = time.get();
 		if (now < 3.5){ //run until 3.5 seconds is reached
-			Arm.GoIR(1.4); //raise arm to tote heights
+			Arm.GoIR(1.4, .5); //raise arm to tote heights
 			Arm.SetCollector(0);
 			Drive.driveCartesian(0, 0, 0);
 		} else {
@@ -121,7 +121,7 @@ public class Auto {
 	public static void stepPlatform(){
 		double now = time.get();
 		if (now < 3.5){ //run until 3.5 seconds is reached
-			Arm.GoIR(1.3); //raise arm to tote heights
+			Arm.GoIR(1.3, 0.5); //raise arm to tote heights
 			Arm.SetCollector(0);
 			Drive.driveCartesian(0, 0, 0);
 		} else {

@@ -78,19 +78,20 @@ public class Arm {
 		SetArm(speed);
 	}
 	
-	public static void GoIR(double target){
+	public static void GoIR(double target, double speed){
         double now = IR.getAverageVoltage();
         double diff = target - now;
-        double speed = 0;
         boolean reverse = diff > 0;
         diff = Math.abs(diff);
         
-        if (diff > 0.2){
-            speed = 0.5;
-        }else if (diff > 0.02){
+        //lower speed within .02V target proximity
+        if (diff > 0.02){
             speed = 0.25;
         }
+        
+        //reverse direction depentant on target-current difference
         speed *= reverse? -1 : 1;
+        
         SetArm(speed);
     } 
 	
@@ -135,8 +136,7 @@ public class Arm {
 		
 		//tote shute angle button
 		if (Joysticks.operator.getRawButton(6)){
-			//GoAngle(2.11); //angle
-			GoIR(1.48); //IR
+			GoIR(1.48, 0.5); 
 		}else {
 			ready = true;
 			stage2 = false;
@@ -146,12 +146,12 @@ public class Arm {
 		
 		//go to container lip height
 		if(Joysticks.operator.getPOV(0) == 0){ //up on d-pad
-			GoIR(2.07);
+			GoIR(2.07, 0.5);
 		}
 		
 		//go to height for grabbing step container
 		if(Joysticks.operator.getPOV(0) == 180){ //down on d-pad
-			GoIR(1.4);
+			GoIR(1.4, 0.5);
 		}
 	}
 	
