@@ -18,7 +18,7 @@ public class Arm {
 	private static DigitalInput LimitUp = new DigitalInput(1);
 	private static DigitalInput LimitDown = new DigitalInput(0);
 	
-	private static AnalogInput angle = new AnalogInput(1); 
+	private static AnalogInput angle = new AnalogInput(1);
 	private static AnalogInput IR = new AnalogInput(2);
 	
 	public static void init() {
@@ -55,27 +55,27 @@ public class Arm {
 	private static boolean stage2;
 	private static boolean ready = true;
 	
-	public static void GoAngle(double target){
+	public static void GoAngle(double target, double speed){
 		
 		double now = angle.getAverageVoltage();
 		double diff = target - now;
-		double speed = 0;
+		double armSpeed = 0;
 		if (diff < 0){
 			//down
 			if (diff < -0.1){
-				speed = -0.5;
+				armSpeed = (speed * -1);
 			}else if (diff < -0.01){
-				speed = -0.3;
+				armSpeed = -0.3;
 			}
 		}else {
 			//up
 			if (diff > 0.1){
-				speed = 0.5;
+				armSpeed = speed; 
 			}else if (diff > 0.01){
-				speed = 0.3;
+				armSpeed = 0.3;
 			}
 		}
-		SetArm(speed);
+		SetArm(armSpeed);
 	}
 	
 	public static void GoIR(double target, double speed){
@@ -83,7 +83,7 @@ public class Arm {
         double diff = target - now;
         boolean reverse = diff > 0;
         diff = Math.abs(diff);
-        
+        speed = speed;
         //lower speed within .02V target proximity
         if (diff > 0.02){
             speed = 0.25;
@@ -133,6 +133,9 @@ public class Arm {
 		} else if(pad == -1){
 			collectorSpeed = 0;
 		}
+		if(fast){
+			collectorSpeed *= 2;
+		}
 		
 		//tote shute angle button
 		if (Joysticks.operator.getRawButton(6)){
@@ -151,7 +154,7 @@ public class Arm {
 		
 		//go to height for grabbing step container
 		if(Joysticks.operator.getPOV(0) == 180){ //down on d-pad
-			GoIR(1.4, 0.5);
+			GoAngle(1.63, 0.5);
 		}
 	}
 	
