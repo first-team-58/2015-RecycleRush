@@ -18,7 +18,7 @@ public class Arm {
 	private static DigitalInput LimitUp = new DigitalInput(1);
 	private static DigitalInput LimitDown = new DigitalInput(0);
 	
-	private static AnalogInput angle = new AnalogInput(1);
+	private static AnalogInput angle = new AnalogInput(1); 
 	private static AnalogInput IR = new AnalogInput(2);
 	
 	public static void init() {
@@ -55,43 +55,42 @@ public class Arm {
 	private static boolean stage2;
 	private static boolean ready = true;
 	
-	public static void GoAngle(double target, double speed){
+	public static void GoAngle(double target){
 		
 		double now = angle.getAverageVoltage();
 		double diff = target - now;
-		double armSpeed = 0;
+		double speed = 0;
 		if (diff < 0){
 			//down
 			if (diff < -0.1){
-				armSpeed = (speed * -1);
+				speed = -0.5;
 			}else if (diff < -0.01){
-				armSpeed = -0.3;
+				speed = -0.3;
 			}
 		}else {
 			//up
 			if (diff > 0.1){
-				armSpeed = speed; 
+				speed = 0.5;
 			}else if (diff > 0.01){
-				armSpeed = 0.3;
+				speed = 0.3;
 			}
 		}
-		SetArm(armSpeed);
+		SetArm(speed);
 	}
 	
-	public static void GoIR(double target, double speed){
+	public static void GoIR(double target){
         double now = IR.getAverageVoltage();
         double diff = target - now;
+        double speed = 0;
         boolean reverse = diff > 0;
         diff = Math.abs(diff);
-        speed = speed;
-        //lower speed within .02V target proximity
-        if (diff > 0.02){
+        
+        if (diff > 0.2){
+            speed = 0.5;
+        }else if (diff > 0.02){
             speed = 0.25;
         }
-        
-        //reverse direction depentant on target-current difference
         speed *= reverse? -1 : 1;
-        
         SetArm(speed);
     } 
 	
@@ -103,18 +102,42 @@ public class Arm {
 		double pad = Joysticks.operator.getPOV(0);
 		
 		if (Joysticks.operator.getRawButton(4)){
-			// Go up if Y is pressed and limit switch not triggered
-			speed = 0.5;
+			// Go up
+			//check for upper limit
+			if(IR.getAverageVoltage() <= .45){
+				speed = 0;
+			} else{
+				//not at upper limit
+				speed = 0.5;
+				
+			//if greater than .6 dont check speed button
+			if(IR.getAverageVoltage() >= 1)
+				//check speed button
+				if(fast){
+					//double the speed
+					speed *= 2;
+				}
+			}
+			
+			
+			
 		} else if(Joysticks.operator.getRawButton(3)){ 
 			// Go down if X is pressed and limit switch not triggered
 			speed = -0.5;
+			
+			if(fast){
+				//double the speed
+				speed *= 2;
+			}
 		}
 		
 		//check for active slow button in up or down is pressed
-		if(fast){
-			//double the speed
-			speed *= 2;
-		}
+		
+		
+		//check for upper limit
+		/*
+		 
+		 * */
 		
 		//control collector
 		if(pad > 0 && pad < 180){
@@ -133,13 +156,11 @@ public class Arm {
 		} else if(pad == -1){
 			collectorSpeed = 0;
 		}
-		if(fast){
-			collectorSpeed *= 2;
-		}
 		
 		//tote shute angle button
 		if (Joysticks.operator.getRawButton(6)){
-			GoIR(1.48, 0.5); 
+			//GoAngle(2.11); //angle
+			GoIR(1.48); //IR
 		}else {
 			ready = true;
 			stage2 = false;
@@ -148,13 +169,8 @@ public class Arm {
 		SetCollector(collectorSpeed);
 		
 		//go to container lip height
-		if(Joysticks.operator.getPOV(0) == 0){ //up on d-pad
-			GoIR(2.07, 0.5);
-		}
-		
-		//go to height for grabbing step container
-		if(Joysticks.operator.getPOV(0) == 180){ //down on d-pad
-			GoAngle(1.63, 0.5);
+		if(Joysticks.operator.getPOV(0) == 0){
+			GoIR(2.07);
 		}
 	}
 	
