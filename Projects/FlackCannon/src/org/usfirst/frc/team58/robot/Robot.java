@@ -28,14 +28,15 @@ public class Robot extends IterativeRobot {
 	private static SendableChooser autochooser;
 	
     public void robotInit() {
-    	try {
+    	/*try {
+    	
         server = CameraServer.getInstance();
 //        server.setQuality(50);
         //the camera name (ex "cam0") can be found through the roborio web interface
 //        server.startAutomaticCapture("cam1");
     	} catch (Exception e){
     		// this is NONFATAL
-    	}
+    	}*/
     	
     	autochooser = new SendableChooser();
         autochooser.addDefault("--NONE--", 0);
@@ -52,19 +53,21 @@ public class Robot extends IterativeRobot {
 
     private static int program;
     public void autonomousInit(){
+    	/*
     	timer.start();
     	try{
     	program = (int)autochooser.getSelected();
     	} catch (Exception e){}
     	SmartDashboard.putNumber("Auto", program);
     	Auto.Init();
+    	*/
     }
 
     /*
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	Auto.run(program);
+    	//Auto.run(program);
     	/*
     	if(timer.get() < 10){
     		Drive.drive(0.5, 0, 0);
