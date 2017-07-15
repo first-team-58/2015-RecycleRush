@@ -1,7 +1,7 @@
 package org.usfirst.frc.team58.robot;
 
 //import edu.wpi.first.wpilibj.Gyro;
-import edu.wpi.first.wpilibj.Gyro;
+//import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
@@ -28,7 +28,7 @@ public class Drive {
 	private static Relay lights = new Relay(0);
 	
 	//create gyroscope
-    private static Gyro gyroscope = new Gyro(0);
+//    private static Gyro gyroscope = new Gyro(0);
     
     //drivebase
     private static RobotDrive DriveBase = new RobotDrive(LeftFront, LeftRear, RightFront, RightRear);
@@ -38,12 +38,12 @@ public class Drive {
     	LiveWindow.addActuator("Drive", "Left Front", LeftFront);
     	LiveWindow.addActuator("Drive", "Right Rear", RightRear);
     	LiveWindow.addActuator("Drive", "Right Front", RightFront);
-    	LiveWindow.addSensor("Drive", "Gyro", gyroscope);
-    	gyroscope.initGyro();
+//    	LiveWindow.addSensor("Drive", "Gyro", gyroscope);
+//    	gyroscope.initGyro();
     }
     
     public static void reset(){
-    	gyroscope.reset();
+//    	gyroscope.reset();
     }
     
     public static void driveTeleop(){
@@ -125,9 +125,10 @@ public class Drive {
     	DriveBase.mecanumDrive_Polar(magnitude, direction, rotation);
     }
     public static void driveCartesian(double x, double y, double rotation){
-    	DriveBase.mecanumDrive_Cartesian(x, y, rotation, gyroscope.getAngle());
+//    	DriveBase.mecanumDrive_Cartesian(x, y, rotation, gyroscope.getAngle());
     }
     public static double getGyro(){
-    	return gyroscope.getAngle();
+//    	return gyroscope.getAngle();
+    	return 0.0;
     }
 }

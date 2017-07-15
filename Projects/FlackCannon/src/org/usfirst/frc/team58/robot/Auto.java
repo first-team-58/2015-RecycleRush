@@ -3,7 +3,7 @@ package org.usfirst.frc.team58.robot;
 import edu.wpi.first.wpilibj.Timer;
 
 public class Auto {
-
+/*
 	private static  Timer time = new Timer();
 	public static void Init(){
 		time.start();
@@ -168,5 +168,5 @@ public class Auto {
 			}
 		}
 	}
-	
+	*/
 }
